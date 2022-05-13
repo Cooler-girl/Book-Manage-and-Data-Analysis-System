@@ -1,0 +1,31 @@
+﻿@using BookMS.Models.ViewModels
+@model LogOffModel
+@{
+    ViewData["Title"] = "确认注销";
+    ViewData["ActivePage"] = ManageNavPages.LogOff;
+    Layout = "_MyLayout";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>清除您的帐户以及相关信息，注意：此操作不可恢复.</strong>
+    </p>
+</div>
+
+<div>
+    <form id="delete-user" method="post" asp-action="LogOff">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.RequirePassword)
+        {
+            <div class="form-floating">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                <label asp-for="Input.Password" class="form-label">密码</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        }
+        <button class="w-100 btn btn-lg btn-danger" type="submit">注销并退出</button>
+    </form>
+</div>
+

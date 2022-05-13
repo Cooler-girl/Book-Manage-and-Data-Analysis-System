@@ -1,0 +1,21 @@
+﻿@using BookMS.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="nav-link @AdminNavPages.BookNavClass(ViewContext)" id="book" asp-controller="Books" asp-action="Manage">图书管理</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.UserNavClass(ViewContext)" id="user" asp-controller="Account" asp-action="Manage">用户管理</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.AuthorNavClass(ViewContext)" id="author" asp-controller="Authors" asp-action="Manage">作者管理</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.AnalysisNavClass(ViewContext)" id="analysis" asp-controller="Borrows" asp-action="GetTypePie">借阅情况</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.OverDueNavClass(ViewContext)" id="overdue" asp-controller="Borrows" asp-action="Manage">逾期管理</a></li>
+    <li class="nav-item"><a class="nav-link @AdminNavPages.AdminNavClass(ViewContext)" id="overdue" asp-controller="Role" asp-action="AddAdminToUser">设置管理员</a></li>
+    @{
+        var user = await UserManager.GetUserAsync(User);
+        if (await UserManager.IsInRoleAsync(user, "超级管理员"))
+        {
+            <li class="nav-item"><a class="nav-link @AdminNavPages.RoleNavClass(ViewContext)" id="overdue" asp-controller="Role" asp-action="CancelAdminForUser">取消管理员</a></li>
+        }
+    }    
+</ul>

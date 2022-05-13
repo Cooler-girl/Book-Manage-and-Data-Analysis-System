@@ -1,0 +1,83 @@
+﻿@using BookMS.Models.ViewModels;
+@model PaginatedList<BookMS.Models.User>
+
+@{
+    ViewData["Title"] = "用户管理";
+    ViewData["ActivePage"] = AdminNavPages.UserManage;
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <form asp-action="Manage" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="搜索" class="btn btn-default" /> 
+            </p>
+        </div>
+    </form>
+    <div class="col-12">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        名称
+                    </th>
+                    <th>
+                        邮箱
+                    </th>
+                    <th>
+                        电话号码
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(ModelItem=>item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem=>item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(ModelItem=>item.PhoneNumber)
+                        </td>
+                        <td>
+                            <a asp-action="Modify" asp-route-id="@item.Id">修改</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">删除</a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" class="text-center">
+                        @{
+                            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                        }
+
+                        <a asp-action="Manage"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-default @prevDisabled"
+                           style="font-size:20px">
+                            上一页
+                        </a>
+                        <a asp-action="Manage"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                           class="btn btn-default @nextDisabled"
+                           style="font-size:20px">
+                            下一页
+                        </a>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <dd class="col-2"></dd>
+</div>

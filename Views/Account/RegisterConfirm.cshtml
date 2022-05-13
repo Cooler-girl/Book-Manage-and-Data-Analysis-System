@@ -1,0 +1,23 @@
+﻿@using BookMS.Models.ViewModels
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "确认注册";
+}
+
+<h1>@ViewData["Title"]</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+<p>
+    欢迎使用儿童图书管理系统。
+    请通过点击<a id="confirm-link" href="@Model.EmailConfirmationUrl">这里</a>来确认您的账户
+</p>
+    }
+    else
+    {
+<p>
+        请检查您的邮箱里的确认邮件。
+</p>
+    }
+}
+

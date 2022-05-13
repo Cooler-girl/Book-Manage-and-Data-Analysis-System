@@ -1,0 +1,105 @@
+﻿@using BookMS.Models.ViewModels
+@model PaginatedList<BookMS.Models.Borrow>
+
+@{
+    ViewData["Title"] = "我的借阅";
+    ViewData["ActivePage"] = ManageNavPages.Borrow;
+    Layout = "_MyLayout";
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="row">
+    <div class="col-md-11">
+        <form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            图书
+                        </th>
+                        <th>
+                            用户
+                        </th>
+                        <th>
+                            借阅日期
+                        </th>
+                        <th>
+                            预归还日期
+                        </th>
+                        <th>
+                            状态
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="vertical-align: middle">
+                                @Html.DisplayFor(modelItem => item.Book.Title)
+                            </td>
+                            <td style="vertical-align: middle">
+                                @Html.DisplayFor(modelItem => item.User.Name)
+                            </td>
+                            <td style="vertical-align: middle">
+                                @Html.DisplayFor(modelItem => item.BorrowDate)
+                            </td>
+                            <td style="vertical-align: middle">
+                                @Html.DisplayFor(modelItem => item.BackDate)
+                            </td>
+                            @if ((item.BackDate < DateTime.Now) && (item.state == "借阅中"))
+                            {
+                                if (item.IsPosted)
+                                {
+                                    <td class="text-danger" style="vertical-align: middle">已逾期</td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td style="vertical-align: middle"><a asp-action="Submit" asp-route-id="@item.Id" class="text-danger" style="text-decoration:none" title="提交管理员处理">已逾期</a></td>
+                                    <td></td>
+                                }
+                            }
+                            else
+                            {
+                                <td style="vertical-align: middle">
+                                    @Html.DisplayFor(modelItem => item.state)
+                                </td>
+                                <td>
+                                    @if (item.state == "借阅中")
+                                    {
+                                        <a asp-action="GiveBack" asp-route-id="@item.Id"><div class="btn" style="background-color:#7173C2">归还</div></a>
+                                    }
+                                </td>
+                            }
+
+                        </tr>
+
+                    }
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            @{
+                                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                            }
+
+                            <a asp-action="MyBorrows"
+                               asp-route-pageNumber="@(Model.PageIndex - 1)"
+                               class="btn btn-default @prevDisabled"
+                               style="font-size:20px">
+                                上一页
+                            </a>
+                            <a asp-action="MyBorrows"
+                               asp-route-pageNumber="@(Model.PageIndex + 1)"
+                               class="btn btn-default @nextDisabled"
+                               style="font-size:20px">
+                                下一页
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿@model BookMS.Models.Author
+
+@{
+    ViewData["Title"] = "作者详情";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">作者详情</h1>
+
+<div style="font-size:20px">
+    <hr />
+    <dl class="row justify-content-center align-items-center">
+        <dd class = "col-sm-2"></dd>
+        <dd class = "col-sm-2">
+            <img src="../../@Model.Img"/>
+        </dd>
+        <dd class = "col-sm-6">
+            @Html.DisplayFor(model => model.Introduce)
+        </dd>
+        <dd class="col-sm-2"></dd>
+
+        <dd class = "col-sm-3" style="margin-top:3%"></dd>
+        <dt class = "col-sm-2" style="margin-top:3%">
+            姓名
+        </dt>
+        <dd class = "col-sm-3" style="margin-top:3%">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd class = "col-sm-4" style="margin-top:3%"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            性别
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Sex)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            国籍
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Country)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            民族
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Nation)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            出生地
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.BirthPlace)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            出生年份
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.BirthYear)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+    </dl>
+    @if(Model.Books.Count()!=0)
+    {
+        var count=0;
+        <form style="margin-top:3%">
+            <table class="table table-hover">
+            <tr><th class="text-center">作品</th><th>出版日期</th></tr>
+            @foreach(var item in Model.Books)
+            {
+                    if (count++ < 5)
+                    {
+                        <tr onclick="location.href='../../Books/Details/@item.BookID'"><td class="text-center">@item.Title</td><td>@item.PubDate.Year.ToString()</td></tr>
+                    }                    
+            }
+            <tr onclick="location.href='../../Books/Index?searchString=@Model.Name'"><td colspan="2" class="text-center">更多</td></tr>
+            </table>
+         </form>
+    }
+    
+</div>
+
+<div align="center" style="margin-top:2%">
+    <button onclick="javascript: history.back();" class="btn" style="background-color:#CC99CC">返回</button>
+</div>

@@ -1,0 +1,50 @@
+﻿@using BookMS.Models.ViewModels
+
+@{
+    ViewData["Title"] = "借阅情况分析";
+    ViewData["ActivePage"] = AdminNavPages.AnalysisManage;
+	ViewData["ActiveChart"] = BorrowNavPages.WeekLine;
+    Layout = "_AdminLayout";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/echarts/echarts.js"></script>
+<div id="main" class="col-md-12  col-sm-12 col-xs-12" style="height: 140%;"></div>
+<script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(document.getElementById('main'));
+		$.ajax({
+			type: "GET",
+			url: "/Borrows/GetWeekData",
+			dataType: "json",
+			success:function(d){
+				var data=JSON.parse(d);
+				// 指定图表的配置项和数据
+				var option = {
+					title: {
+						text: '近七天借阅情况'
+					},
+					tooltip: {},
+					legend: {
+						data:['借阅数量']
+					},
+					xAxis: {
+						data: data.x
+					},
+					yAxis: {
+						minInterval: 1, 
+					},
+					series: [{
+						name: '借阅数量',
+						type: 'line',
+						data: data.value
+					}]
+				};					 
+				// 使用刚指定的配置项和数据显示图表。
+				myChart.setOption(option);
+			},
+			error:function(){
+				alert("获取json数据失败！");
+			}
+		})        			
+</script>

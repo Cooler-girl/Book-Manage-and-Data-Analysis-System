@@ -1,0 +1,10 @@
+﻿@using BookMS.Models.ViewModels
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item"><a class="nav-link @ManageNavPages.EditNavClass(ViewContext)" id="profile" asp-controller="Account" asp-action="Edit">我的资料</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.BorrowNavClass(ViewContext)" id="borrow" asp-controller="Borrows" asp-action="MyBorrows">我的借阅</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-controller="Account" asp-action="ChangePassword">修改密码</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.LogOffNavClass(ViewContext)" id="personal-data" asp-controller="Account" asp-action="LogOff">注销</a></li>
+</ul>

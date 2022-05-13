@@ -1,0 +1,85 @@
+﻿@model BookMS.Models.Book
+
+@{
+    ViewData["Title"] = "上架图书";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">上架</h1>
+<hr />
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group">
+                <label asp-for="Title" class="control-label">书名</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookID" class="control-label">图书编号</label>
+                <input asp-for="BookID" class="form-control" />
+                <span asp-validation-for="BookID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">封面</label>
+                <input type="file" class="form-control" name="file"  accept="image/jpg" />  
+                <span  class="text-danger"></span>
+            </div>
+            <div class="form-group">  
+                <label class="control-label">作者</label>
+                <select name="author" class ="form-control" asp-items="ViewBag.Author"></select>
+            </div>
+        <!--    <div class="form-group">
+                <label asp-for="Img" class="control-label">封面</label>
+                <input asp-for="Img" class="form-control" />
+                <span asp-validation-for="Img" class="text-danger"></span>
+            </div>-->
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">分类</label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Words" class="control-label">字数</label>
+                <input asp-for="Words" class="form-control" />
+                <span asp-validation-for="Words" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Introduce" class="control-label">简介</label>
+                <input asp-for="Introduce" class="form-control" />
+                <span asp-validation-for="Introduce" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label">价格</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label">库存</label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PubDate" class="control-label">出版日期</label>
+                <input asp-for="PubDate" class="form-control" />
+                <span asp-validation-for="PubDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Remark" class="control-label">备注</label>
+                <input asp-for="Remark" class="form-control" />
+                <span asp-validation-for="Remark" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center" style="margin-top:3%">
+                <input type="submit" value="确认" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div align="center" style="margin-top:2%">
+    <button onclick="location.href='../../Books/Manage'" class="btn" style="background-color:#CC99CC">返回</button>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

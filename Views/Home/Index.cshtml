@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model BookMS.Models.ViewModels.HomeIndexData
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>儿童图书借阅管理系统</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="mt-4 mb-5">
+            <dl class="row justify-content-center align-items-center">
+                <dd class="col-sm-1"></dd>
+                <div id="search" class="col-sm-10">
+                    <form asp-controller="Books" asp-action="Index" method="get">
+                        <div class="input-group">
+                            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control form-control-lg" placeholder="搜索书名或作者">
+                            <button class="btn btn-search" style="background-color:white"><img src="~/images/ico/search-line.png"></button>
+                        </div>
+                    </form>
+                </div>
+                <dd class="col-sm-1"></dd>
+            </dl>
+            @{
+                var count = 0;
+            }
+            <dl class="mt-5 row justify-content-center align-items-start">
+                @foreach (var item in Model.Books)
+                {
+                    @if (count++ < 5)
+                    {
+                        <div class="ms-2 col-md-2 text-center">
+                            <a asp-controller="Books" asp-action="Details" asp-route-id="@item.BookID" class="text-center" style="text-decoration:none;color:#000000;font-size:20px">
+                                <img src="@item.Img" class="img-responsive img-thumbnail">
+                                <div class="text-center" style="margin-top:5%">
+                                    @item.Title
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                <div class="col-md-1 align-self-center text-center">
+                    <a asp-controller="Books" asp-action="Index" style="text-decoration:none;color:#000000;font-size:30px">
+                        <p>更多</p>
+                    </a>
+                </div>
+            </dl>
+            @{
+                count = 0;
+            }
+            <dl class="mt-0 row justify-content-center align-items-start">
+            </dl>
+            <div class="row justify-content-center align-items-start" style="margin-top:3.5%">
+                @foreach (var item in Model.Authors)
+                {
+
+                    @if (count++ < 5)
+                    {
+                        <div class="ms-2 col-md-2 text-center">
+                            <a asp-controller="Authors" asp-action="Details" asp-route-id="@item.Id" class="text-center" style="text-decoration:none;color:#000000;font-size:20px">
+                                <img src="@item.Img" class="img-responsive img-thumbnail">
+                                <div class="text-center" style="margin-top:5%">
+                                    @item.Name
+                                </div>
+                                <div class="text-center">
+                                    (@item.BirthYear.Year.ToString())
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+                <div class="col-md-1 align-self-center text-center">
+                    <a asp-controller="Authors" asp-action="Index" style="text-decoration:none;color:#000000;font-size:30px">
+                        <p>更多</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div>
+            <div class="text-center" style="margin-top: 19%;width: 70%;height: 15%;color: white;margin-left: 12%;">
+                <main role="main" class="pb-3">
+                    <span style="font-size: 55px;">欢迎来到儿童图书管理系统</span>
+                    <p style="margin-left: 25%;">儿童图书管理系统，一个致力于儿童阅读的图书借阅系统</p>
+                    <div class="rounded-pill" style="border: 1px solid white;width: 10%;height: 15%;margin-top: 3%;margin-left: 45%;font-size: 20px;text-align: center;">
+                        <a class="btn text-white" asp-controller="Account" asp-action="Login">开始</a>
+                    </div>
+                </main>
+            </div>           
+        </div>
+    }
+</body>

@@ -1,0 +1,64 @@
+﻿@using BookMS.Models.ViewModels
+
+@{
+    ViewData["Title"] = "借阅情况分析";
+    ViewData["ActivePage"] = AdminNavPages.AnalysisManage;
+    ViewData["ActiveChart"] = BorrowNavPages.TypeBar;
+    Layout = "_AdminLayout";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/echarts/echarts.js"></script>
+<div id="main" class="col-md-12  col-sm-12 col-xs-12" style="height: 140%;"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    $.ajax({
+        type: "GET",
+        url: "/Borrows/GetTypeData",
+        dataType: "json",
+        success:function(d){
+            var data=JSON.parse(d);
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '图书类型借阅情况'
+                },
+                tooltip: {},
+                legend: {
+                    data:['借阅数量']
+                },
+                xAxis: {
+                    data: data.x
+                },
+                yAxis: {
+                    minInterval: 1, 
+                },
+                series: [{
+                    name: '借阅数量',
+                    type: 'bar',
+                    data: data.value,
+                    itemStyle: {
+                        normal: {
+                        //这里是重点
+                            color: function(params) {
+                                //注意，如果颜色太少的话，后面颜色不会自动循环，最好多定义几个颜色
+                                var colorList = ['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83', '#ca8622'];
+                                //给大于颜色数量的柱体添加循环颜色的判断
+	                            if (params.dataIndex >= colorList.length) {
+	                                index = params.dataIndex - colorList.length;
+	                            }
+                                return colorList[params.dataIndex]
+                            }
+                        }
+                    }
+                }]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+        },
+        error:function(){
+            alert("获取json数据失败！");
+        }
+    })
+</script>

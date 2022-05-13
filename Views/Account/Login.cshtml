@@ -1,0 +1,49 @@
+﻿@using BookMS.Models.ViewModels
+@model LoginViewModel
+@{
+    ViewData["Title"] = "登录";
+}
+
+<div class="row justify-content-center align-items-center" style="margin-top:5%">
+    <div class="col-md-4">
+        <section style="margin-top:5%">
+            <form role="form" method="post" asp-action="Login">
+                <h2>登录.</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating">
+                    <input asp-for="UserName" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="UserName" class="form-label">用户名</label>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-floating" style="margin-top:2%">
+                    <input asp-for="PassWord" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <label asp-for="PassWord" class="form-label">密码</label>
+                    <span asp-validation-for="PassWord" class="text-danger"></span>
+                </div>
+                <div>
+                    <div class="checkbox">
+                        <label asp-for="RememberMe" class="form-label">
+                            <input class="form-check-input" asp-for="RememberMe" />记住密码
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <p class="col-sm-3">
+                        <a id="forgot-password" asp-controller="Account" asp-action="ForgetPassword">忘记密码</a>
+                    </p>
+                    <p class="col-sm-2">
+                        <a  asp-controller="Account" asp-action="Register">注册</a>
+                    </p>
+                    <p class="col-sm-4">
+                        <a id="resend-confirmation" asp-controller="Account" asp-action="ResendEmailConfirmation">重发确认邮件</a>
+                    </p>
+                </div>
+                <div>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary" style="margin-top:2%">登录</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+

@@ -1,0 +1,82 @@
+﻿@using BookMS.Models.ViewModels;
+@model PaginatedList<BookMS.Models.Borrow>
+
+@{
+    ViewData["Title"] = "逾期管理";
+    ViewData["ActivePage"] = AdminNavPages.OverDueManage;
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    图书
+                </th>
+                <th>
+                    用户
+                </th>
+                <th>
+                    借阅日期
+                </th>
+                <th>
+                    预归还日期
+                </th>
+                <th>
+                    状态
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.Book.Title)
+                    </td>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.User.Name)
+                    </td>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.BorrowDate)
+                    </td>
+                    <td style="vertical-align: middle">
+                        @Html.DisplayFor(modelItem => item.BackDate)
+                    </td>
+                    <td class="text-danger" style="vertical-align: middle">已逾期</td>
+                    <td style="vertical-align: middle">
+                        <form asp-action="Handle" asp-route-id="@item.Id" style="vertical-align: middle">
+                            <input type="submit" value="处理" class="btn-primary" style="vertical-align: middle">
+                        </form>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5" class="text-center">
+                    @{
+                        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+
+                    <a asp-action="Index"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-default @prevDisabled"
+                       style="font-size:20px">
+                        上一页
+                    </a>
+                    <a asp-action="Index"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn btn-default @nextDisabled"
+                       style="font-size:20px">
+                        下一页
+                    </a>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

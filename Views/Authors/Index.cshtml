@@ -1,0 +1,51 @@
+﻿@using BookMS.Models.ViewModels;
+@model  PaginatedList<BookMS.Models.Author>
+
+@{
+    ViewData["Title"] = "作者";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">作者</h1>
+
+    <div class="row justify-content-center align-items-start" style="margin-top:3.5%">
+            @foreach(var item in Model)
+            {                               
+                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 text-center">
+                    <a asp-controller="Authors" asp-action="Details" asp-route-id="@item.Id" class="text-center" style="text-decoration:none;color:#000000;font-size:20px">
+                    <img src="@item.Img" class="img-responsive img-thumbnail">
+                    <div class="text-center" style="margin-top:5%">
+                     @item.Name
+                    </div> 
+                    <div class="text-center">                        
+                        (@item.BirthYear.Year.ToString())
+                    </div>
+                    </a>
+                    <div class="mb-4"></div>
+                </div>
+                
+            }
+
+     </div>
+<div class="text-center">
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled" 
+   style="font-size:20px">
+    上一页
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled"
+   style="font-size:20px">
+    下一页
+</a>
+</div>

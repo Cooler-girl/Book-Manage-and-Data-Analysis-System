@@ -1,0 +1,67 @@
+﻿@model BookMS.Models.Borrow
+
+@{
+     ViewData["Title"] = "借阅";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">借阅</h1>
+
+<h4 class="text-center text-muted" style="margin-top:3%">借阅信息</h4>
+<hr />
+<div class="row justify-content-center align-items-start" style="margin-top:2%">
+    <div class="col-md-4">
+        <form asp-action="Borrow" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="UserID" class="form-control" type="hidden"/>
+            <input asp-for="BookID" class="form-control" type="hidden"/>
+            <input asp-for="@Model.Book.Img" class="form-control" type="hidden"/>
+            <input asp-for="BorrowDate" class="form-control" type="hidden"/>
+            <div class="form-group text-center">
+                <img src="../../@Model.Book.Img"/>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Title" class="control-label text-center">名称</label>
+                <input asp-for="Book.Title" class="form-control" disabled/>
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+           <div class="form-group">
+                <label asp-for="BookID" class="control-label">图书编号</label>
+                <input asp-for="BookID" class="form-control" disabled/>
+                <span asp-validation-for="Book.BookID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Type" class="control-label">分类</label>
+                <input asp-for="Book.Type" class="form-control" disabled/>
+                <span asp-validation-for="Book.Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Words" class="control-label">字数</label>
+                <input asp-for="Book.Words" class="form-control" disabled/>
+                <span asp-validation-for="Book.Words" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Book.Price" class="control-label">价格</label>
+                <input asp-for="Book.Price" class="form-control" disabled/>
+                <span asp-validation-for="Book.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BorrowDate" class="control-label">借阅日期</label>
+                <input asp-for="BorrowDate" class="form-control" disabled/>
+                <span asp-validation-for="BorrowDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackDate" class="control-label">请选择归还日期</label>
+                <input asp-for="BackDate" class="form-control" />
+                <span asp-validation-for="BackDate" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center" style="margin-top:1%">
+                <input type="submit" value="确认" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

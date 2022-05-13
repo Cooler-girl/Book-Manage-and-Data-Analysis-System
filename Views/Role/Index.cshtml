@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model List<IdentityRole>
+@{
+    ViewData["Title"] = "角色列表";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">角色列表</h1>
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td class="text-center">编号</td>
+                <td class="text-center">角色</td>
+                <td class="text-center">操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    <td class="text-center">@item.Name</td>
+                    <td class="text-center">
+                        <a class="btn btn-warning" asp-route-Id="@item.Id" asp-action="Edit">编辑</a>&nbsp;&nbsp;
+                        <a class="btn btn-warning" asp-route-Id="@item.Id" asp-action="Delete">删除</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <center><a class="btn btn-primary text-center" asp-action="Add">添加角色</a></center>
+</div>
+
+

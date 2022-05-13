@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>儿童图书借阅管理系统</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookManageSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/ManageLayout.css" />
+</head>
+
+<div>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Manage"><h3>管理</h3>  </a>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <partial name="_AdminNav" />
+        </div>
+       
+        @{             
+            var activePage = ViewContext.ViewData["ActivePage"] as string;
+            if (activePage=="AnalysisManage")
+            {
+                <div class="col-md-8">
+                    @RenderBody()
+                </div>
+                <div class="col-md-2" style="font-size:15px">
+                    <partial name="_BorrowNav" />
+                </div>
+            }
+            else
+            {
+                 <div class="col-md-10">
+                    @RenderBody()
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

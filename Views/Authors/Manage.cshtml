@@ -1,0 +1,98 @@
+﻿@using BookMS.Models.ViewModels;
+@model PaginatedList<BookMS.Models.Author>
+
+@{
+    ViewData["Title"] = "作者管理";
+    ViewData["ActivePage"] = AdminNavPages.AuthorManage;
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+     <div class="col-md-12">
+         <form asp-action="Manage" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="搜索" class="btn btn-default" /> 
+                </p>
+            </div>
+        </form>
+         <table class="table">
+              <thead>
+                <tr>
+                    <th>
+                        姓名
+                    </th>
+                    <th>
+                       性别
+                    </th>
+                    <th>
+                        国籍
+                    </th>
+                    <th>
+                        民族
+                    </th>
+                    <th>
+                        出生地
+                    </th>
+                    <th>
+                        出生年份
+                    </th>
+                    <th><a asp-action="Create" style="text-decoration:none">创建一个作者</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sex)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Country)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BirthPlace)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BirthYear)
+                        </td>
+                        <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">修改</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">删除</a>
+                    </td>
+                    </tr>
+                }
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            @{
+                                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                            }
+
+                            <a asp-action="Manage"
+                               asp-route-pageNumber="@(Model.PageIndex - 1)"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                               class="btn btn-default @prevDisabled" 
+                               style="font-size:20px">
+                                上一页
+                            </a>
+                            <a asp-action="Manage"
+                               asp-route-pageNumber="@(Model.PageIndex + 1)"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                               class="btn btn-default @nextDisabled"
+                               style="font-size:20px">
+                                下一页
+                            </a>
+                        </td><td></td>
+                    </tr>
+            </tbody>
+          </table>
+     </div>
+</div>

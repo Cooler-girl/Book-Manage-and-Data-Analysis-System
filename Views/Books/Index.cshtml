@@ -1,0 +1,87 @@
+﻿@using BookMS.Models.ViewModels
+@model PaginatedList<BookMS.Models.Book>
+
+@{
+    ViewData["Title"] = "图书";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">图书</h1>
+
+<table class="table"  style="font-size:28px;margin-top:3%">
+    <thead style="font-size:25px">
+        <tr>
+            <th></th>
+            <th class="col-sm-2" style="vertical-align: middle !important;text-align: center;">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style="text-decoration:none;color:black">书名</a>
+            </th>
+            <th class="col-sm-2" style="vertical-align: middle !important;text-align: center;">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style="text-decoration:none;color:black">作者</a>
+            </th>
+            <th style="vertical-align: middle !important;text-align: center;">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style="text-decoration:none;color:black">出版日期</a>
+            </th>
+            <th style="vertical-align: middle !important;text-align: center;">
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["WordsSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" style="text-decoration:none;color:black">字数</a>
+            </th>
+            <th style="vertical-align: middle !important;text-align: center;">
+               分类
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.BookID"><img src="../@item.Img"></a>   
+            </td>
+            <td class="col-sm-2" style="vertical-align: middle !important;text-align: center;">
+                <a asp-action="Details" asp-route-id="@item.BookID" style="text-decoration:none;color:black">@item.Title</a>
+            </td>
+             @if (item.Author != null)
+             {
+            <td class="col-sm-2" style="vertical-align: middle !important;text-align: center;">
+                <a asp-controller="Authors" asp-action="Details" asp-route-Id="@item.Author.Id" style="text-decoration:none;color:black">@item.Author.Name</a>
+            </td>
+             }
+             else
+             {
+             <td class="col-sm-2" style="vertical-align: middle !important;text-align: center;">
+                 
+             </td>
+              }
+                <td style="vertical-align: middle !important;text-align: center;">
+                @item.PubDate.ToString("D")
+            </td>
+            <td style="vertical-align: middle !important;text-align: center;">
+                @Html.DisplayFor(modelItem => item.Words)
+            </td>
+            <td style="vertical-align: middle !important;text-align: center;">
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="text-center">
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled" 
+   style="font-size:20px">
+    上一页
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled"
+   style="font-size:20px">
+    下一页
+</a>
+</div>

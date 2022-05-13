@@ -1,0 +1,66 @@
+﻿@using BookMS.Models.ViewModels
+
+@{
+    ViewData["Title"] = "借阅情况分析";
+    ViewData["ActivePage"] = AdminNavPages.AnalysisManage;
+	ViewData["ActiveChart"] = BorrowNavPages.MonthLine;
+    Layout = "_AdminLayout";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/echarts/echarts.js"></script>
+<div id="main" class="col-md-12  col-sm-12 col-xs-12" style="height: 140%;"></div>
+<script type="text/javascript">
+		var myChart = echarts.init(document.getElementById('main'));  
+		$.ajax({
+			type: "GET",
+			url: "/Borrows/GetMonthData",
+			dataType: "json",
+			success:function(d){
+				var data=JSON.parse(d);
+                var x=data.x;
+                var chartType=[];
+                var types=[];
+                var values=[];
+                for(var i=0;i<data.values.length;i++){
+                    var json=JSON.parse(data.values[i]);
+                    types.push(json.type);
+                    values.push(json.value);
+                }
+                var s=[];     
+                var s0=[];
+                s0.push('date');
+                for(var i=0;i<types.length;i++){
+                    s0.push(types[i]);
+                    chartType.push({type: 'line'});
+                }
+                s.push(s0);
+                for(var i=0;i<x.length;i++){
+                    var st=[];
+                    st.push(x[i]);
+                    for(var j=0;j<values.length;j++){
+                        st.push(values[j][i]);
+                    }
+                    s.push(st);
+                }
+                console.log(chartType);
+                var option = {
+                    legend: {},
+                    tooltip: {},
+                    dataset: {
+                        source: s
+                    },
+                    // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                    xAxis: {type: 'category'},
+                    yAxis: {
+                        minInterval: 1, 
+                    },
+                    series: chartType
+                };
+                myChart.setOption(option);// 重新加载图表               
+			},
+			error:function(){
+				alert("获取json数据失败！");
+			}
+		})
+</script>

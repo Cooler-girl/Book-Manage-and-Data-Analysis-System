@@ -1,0 +1,63 @@
+﻿@model BookMS.Models.Borrow
+
+@{
+    ViewData["Title"] = "归还";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">归还</h1>
+
+<hr />
+<div class="row justify-content-center align-items-start" style="margin-top:2%">
+    <div class="col-md-4">
+        <form asp-action="GiveBack"> 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden"asp-for="BookID"/>
+            <input type="hidden" asp-for="UserID"/>
+            <input type="hidden" asp-for="BorrowDate" />
+            <input type="hidden" asp-for="BackDate" />
+            <input type="hidden" asp-for="state" />
+            <div class="form-group">
+                <label asp-for="Book.Title" class="control-label">图书</label>
+                <input asp-for="Book.Title" class="form-control"disabled></input>
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookID" class="control-label">图书编号</label>
+                <input asp-for="BookID" class="form-control" disabled></input>
+                <span asp-validation-for="BookID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Name" class="control-label">用户</label>
+                <input asp-for="User.Name" class="form-control" disabled></input>
+                <span asp-validation-for="User.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BorrowDate" class="control-label">借阅日期</label>
+                <input asp-for="BorrowDate" class="form-control" disabled/>
+                <span asp-validation-for="BorrowDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackDate" class="control-label">预归还日期</label>
+                <input asp-for="BackDate" class="form-control" disabled/>
+                <span asp-validation-for="BackDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="state" class="control-label">状态</label>
+                <input asp-for="state" class="form-control" disabled/>
+                <span asp-validation-for="state"></span>
+            </div>
+            <div class="form-group text-center" style="margin-top:2%">
+                <input type="submit" value="归还" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div align="center" style="margin-top:1%">
+    <button onclick="javascript: history.back();" class="btn" style="background-color:#CC99CC">返回</button>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

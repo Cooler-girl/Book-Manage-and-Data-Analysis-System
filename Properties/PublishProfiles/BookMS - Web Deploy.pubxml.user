@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此文件由 Web 项目的发布/打包过程使用。可以通过编辑此 MSBuild 文件
+自定义此过程的行为。为了解与此相关的更多内容，请访问 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAaz/jUHA68USwUaGiHf5KywAAAAACAAAAAAAQZgAAAAEAACAAAAAF3IGYY9WiktUkmIF5pI9IBvwthsCX/GWkvIs6TTZwjgAAAAAOgAAAAAIAACAAAAAXod2VQvMk4dmxSfQoklsy4lhJiBHC+nKXgdtLf99a6oAAAABe5q6dBbq7jL4SHsStDI1pIBydH/u3BuUtnq+hDsNCs3Wj/MtFlvAgOGBC6Okr7DXRu1WO9ZtSX9mkdC8THO0xzIF9ZhWP8iCth9I1OSQij6yFEVHZBvpmL32OkrgTVQ1V58EX0yTF0EKdIpk/+ebRIk9BVtrYk3g4aPip1SkwFkAAAABr8MAXYArRopd7SK7Er23DoSVyo6w4O3WeQfP8EYVniS+2T2yBgYyjeHt7Ju6dC3fsWlMG05mKLU5jnnHcfcaj</EncryptedPassword>
+    <History>True|2022-04-24T12:44:53.0663788Z;True|2022-04-24T20:42:54.6675500+08:00;True|2022-04-21T15:09:14.6744848+08:00;True|2022-04-21T15:03:45.7827438+08:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="BookContextConnection">
+      <Value>Data Source=tcp:bookmsdbserver.database.windows.net,1433%3bInitial Catalog=BookMS_db%3bUser Id=yl%40bookmsdbserver%3bPassword=1372And3456</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="BookMS.Data.BookContext">
+      <Value>Data Source=tcp:bookmsdbserver.database.windows.net,1433%3bInitial Catalog=BookMS_db%3bUser Id=yl%40bookmsdbserver%3bPassword=1372And3456</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

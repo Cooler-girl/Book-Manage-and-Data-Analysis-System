@@ -1,0 +1,19 @@
+﻿@using BookMS.Models.ViewModels
+
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link text-dark @BorrowNavPages.TypePieNavClass(ViewContext)" asp-area="" asp-controller="Borrows" asp-action="GetTypePie">图书类型借阅情况(饼图)</a>
+    </li>
+     <li class="nav-item">
+        <a class="nav-link text-dark @BorrowNavPages.TypeBarNavClass((ViewContext))" asp-area="" asp-controller="Borrows" asp-action="GetTypeBar">图书类型借阅情况(柱状图)</a>
+    </li>
+        <li class="nav-item">
+        <a class="nav-link text-dark @BorrowNavPages.WeekBarNavClass((ViewContext))" asp-area="" asp-controller="Borrows" asp-action="GetWeekBar">近七天借阅情况(柱状图)</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark @BorrowNavPages.WeekLineNavClass((ViewContext))" asp-area="" asp-controller="Borrows" asp-action="GetWeekLine">近七天借阅情况(折线图)</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark @BorrowNavPages.MonthLineNavClass((ViewContext))" asp-area="" asp-controller="Borrows" asp-action="GetMonthLine">近三十天借阅情况(折线图)</a>
+    </li>
+</ul>

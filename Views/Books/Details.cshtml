@@ -1,0 +1,93 @@
+﻿@model BookMS.Models.Book
+
+@{
+    ViewData["Title"] = "图书详情";
+}
+
+<h1 class="text-center text-muted" style="margin-top:3%">图书详情</h1>
+
+<div style="font-size:20px">
+    <hr />
+    <dl class="row justify-content-center align-items-center">
+        <dd class = "col-sm-3" style="margin-top:1%"></dd>
+        <dd class = "col-sm-2" style="margin-top:1%">
+            <img src="../../@Model.Img"/>
+        </dd>
+        <dd class = "col-sm-6" style="margin-top:1%">
+            @Html.DisplayFor(model => model.Introduce)
+        </dd>
+        <dd class = "col-sm-1" style="margin-top:1%"></dd>
+
+        <dd class = "col-sm-3" style="margin-top:3%"></dd>
+        <dt class = "col-sm-2" style="margin-top:3%">
+            名称
+        </dt>
+        <dd class = "col-sm-3" style="margin-top:3%">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+         <dd class = "col-sm-4" style="margin-top:3%"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            分类
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            字数
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Words)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+        
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            价格
+        </dt>
+        <dd class = "col-sm-3">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        <dd class = "col-sm-3"></dd>
+        <dt class = "col-sm-2">
+            出版日期
+        </dt>
+        <dd class = "col-sm-3">
+            @Model.PubDate.ToString("d")
+        </dd>
+        <dd class = "col-sm-4"></dd>
+
+        @if (Model.Count > 0)
+        {
+        <dd class = "col-sm-3" style="margin-top:2%"></dd>
+        <dd class = "col-sm-2" style="margin-top:2%">
+            <div class="text-center" style="background-color:#BACAC6;font-size:23px;width:30%;margin-left:10%">可借</div>
+        </dd>
+        <dd class = "col-sm-3" style="margin-top:2%">
+            <a asp-controller="Borrows" asp-action="Borrow" asp-route-bookId="@Model.BookID"><button class="btn btn-primary">借阅</button></a>&nbsp;&nbsp;&nbsp;
+            <button onclick="javascript: history.back();" class="btn" style="background-color:#CC99CC">返回</button>
+        </dd>
+        <dd class = "col-sm-4" style="margin-top:2%"></dd>
+        }
+        else
+        {
+        <dd class = "col-sm-3" style="margin-top:3%"></dd>
+        <dt class = "col-sm-2" style="margin-top:3%">
+            不可借
+        </dt>
+        <dd class = "col-sm-3" style="margin-top:3%">
+            <button class="btn btn-danger">借阅</button>
+        </dd>
+        <dd class = "col-sm-4" style="margin-top:3%"></dd>
+        }
+    </dl>
+</div>
+<div align="center" style="margin-top:2%">
+    
+</div>

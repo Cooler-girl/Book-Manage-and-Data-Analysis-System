@@ -1,0 +1,36 @@
+﻿@using BookMS.Models.ViewModels
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "注册";
+}
+
+<div class="row justify-content-center align-items-center" style="margin-top:5%">
+    <div class="col-md-4">
+        <form role="form" method="post" asp-action="Register" style="margin-top:5%">
+            <h2>注册</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating">
+                <input asp-for="Name" class="form-control" placeholder="请输入昵称" />
+                <label asp-for="Name">昵称</label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top:2%">
+                <input asp-for="UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="请输入用户名" />
+                <label asp-for="UserName">用户名</label>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top:2%">
+                <input asp-for="PassWord" type="password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="PassWord">密码</label>
+                <span asp-validation-for="PassWord" class="text-danger"></span>
+            </div>
+            <div class="form-floating" style="margin-top:2%">
+                <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" laceholder="请输入邮箱"/>
+                <label asp-for="Email">邮箱</label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <button type="submit"class="w-100 btn btn-lg btn-primary" style="margin-top:2%">注册</button>
+        </form>
+    </div>
+</div>
